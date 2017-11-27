@@ -12,6 +12,9 @@ import uuid
 
 
 def main(args):
+    if kafka.BROKERS is None:
+        print("KAFKA_BROKERS env var not set.")
+        sys.exit(2)
     config = {"bootstrap.servers": kafka.BROKERS}
     topic = "speed_test"
 

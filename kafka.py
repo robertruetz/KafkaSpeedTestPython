@@ -8,15 +8,18 @@ import instrumentation as inst
 from instrumentation import Timer
 import sys
 import uuid
+import os
 
 
-BROKERS = "146.148.80.97:10086"
-# BROKERS = "172.17.0.3:9092"
+BROKERS = os.environ.get("KAFKA_BROKERS", None)
 ERRORS = 0
 DELIVERED = 0
 
 
 def main(args):
+    if BROKERS is None:
+        print("KAFKA_BROKERS env var missing.")
+        sys.exit(2)
     config = {"bootstrap.servers": BROKERS}
     topic = "speed_test"
 
